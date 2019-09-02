@@ -3,5 +3,4 @@
  */
 
 export * from './lib/ngx-facebook.service';
-export * from './lib/ngx-facebook.component';
 export * from './lib/ngx-facebook.module';

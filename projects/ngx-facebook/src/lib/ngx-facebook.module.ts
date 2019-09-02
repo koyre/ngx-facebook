@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { NgxFacebookComponent } from './ngx-facebook.component';
 
 
 
 @NgModule({
-  declarations: [NgxFacebookComponent],
+  declarations: [],
   imports: [
   ],
-  exports: [NgxFacebookComponent]
+  exports: []
 })
 export class NgxFacebookModule { }
