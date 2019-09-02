@@ -1,6 +1,6 @@
 {
   "name": "ngx-facebook-library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple wrapper of Facebook Web SDK for Angular",
   "author": "Dmitry Rogov",
   "repository": {
@@ -22,7 +22,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build_lib": "ng build NgxFacebook",
+    "npm_pack": "cd dist/ngx-facebook && npm pack",
+    "package": "npm run build_lib && npm run npm_pack"
   },
   "private": true,
   "dependencies": {
