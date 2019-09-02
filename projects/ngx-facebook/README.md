@@ -1,24 +1,34 @@
-# NgxFacebook
+# NgxFacebookLibrary
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.3.
+make facebook and angular work together again <3 
 
-## Code scaffolding
+## installation
 
-Run `ng generate component component-name --project NgxFacebook` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project NgxFacebook`.
-> Note: Don't forget to add `--project NgxFacebook` or else it will be added to the default project in your `angular.json` file. 
+##### 1. add library to your package
 
-## Build
+###### 1.1. via NPM
+ 
+`npm i --save ngx-facebook`
 
-Run `ng build NgxFacebook` to build the project. The build artifacts will be stored in the `dist/` directory.
+###### 1.1. via Yarn
 
-## Publishing
+`yarn add ngx-facebook`
 
-After building your library with `ng build NgxFacebook`, go to the dist folder `cd dist/ngx-facebook` and run `npm publish`.
+##### 2. import `FacebookModule` into your target module
 
-## Running unit tests
+e.g. your app's root module
+```angular2
+import { NgxFacebookModule } from 'ngx-facebook';
+ 
+@NgModule({
+  ...
+  imports: [
+    NgxFacebookModule.forRoot()
+  ],
+  ...
+})
+export class AppModule { }
+```
 
-Run `ng test NgxFacebook` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
