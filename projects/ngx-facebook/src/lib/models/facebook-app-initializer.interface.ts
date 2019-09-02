@@ -1,6 +1,6 @@
 export interface IFacebookAppInitializer {
-  appId: string;
+  appId: number;
   cookie?: boolean;
   xfbml?: boolean ;
-  version;
+  version?;
 }
