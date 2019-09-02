@@ -1,6 +1,21 @@
 {
   "name": "ngx-facebook-library",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Simple wrapper of Facebook Web SDK for Angular",
+  "author": "Dmitry Rogov",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koyre/ngx-facebook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/koyre/ngx-facebook/issues"
+  },
+  "keywords": [
+    "angular",
+    "typescript",
+    "facebook"
+  ],
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
