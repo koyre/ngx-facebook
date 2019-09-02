@@ -8,17 +8,17 @@ make facebook and angular work together again <3
 
 ###### 1.1. via NPM
  
-`npm i --save ngx-facebook`
+`npm i --save @koyre/ngx-facebook`
 
 ###### 1.1. via Yarn
 
-`yarn add ngx-facebook`
+`yarn add @koyre/ngx-facebook`
 
 ##### 2. import `FacebookModule` into your target module
 
 e.g. your app's root module
 ```angular2
-import { NgxFacebookModule } from 'ngx-facebook';
+import { NgxFacebookModule } from '@koyre/ngx-facebook';
  
 @NgModule({
   ...
