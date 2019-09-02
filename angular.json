@@ -115,6 +115,41 @@
           }
         }
       }
+    },
+    "NgxFacebook": {
+      "projectType": "library",
+      "root": "projects/ngx-facebook",
+      "sourceRoot": "projects/ngx-facebook/src",
+      "prefix": "NgxFb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-facebook/tsconfig.lib.json",
+            "project": "projects/ngx-facebook/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-facebook/src/test.ts",
+            "tsConfig": "projects/ngx-facebook/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-facebook/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-facebook/tsconfig.lib.json",
+              "projects/ngx-facebook/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "NgxFacebookLibrary"
 }

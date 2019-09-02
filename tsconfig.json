@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-facebook": [
+        "dist/ngx-facebook"
+      ],
+      "ngx-facebook/*": [
+        "dist/ngx-facebook/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
