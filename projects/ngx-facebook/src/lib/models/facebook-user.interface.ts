@@ -1,4 +1,4 @@
-export interface IFacebookUser {
+export interface NgxFacebookUser {
   name: string;
   id: number;
 }

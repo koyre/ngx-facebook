@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { NgxFacebookService } from './ngx-facebook.service';
-import { IFacebookAuthResponse } from './models';
+import { NgxFacebookAuthResponse } from './models';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Directive({
@@ -14,7 +14,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 })
 export class NgxFacebookLoginDirective implements OnDestroy {
   @Output()
-  public readonly login = new EventEmitter<IFacebookAuthResponse>();
+  public readonly login = new EventEmitter<NgxFacebookAuthResponse>();
 
   constructor(private readonly _ngxFacebookService: NgxFacebookService) {}
 

@@ -7,12 +7,12 @@ import { NextObserver, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-  IFacebookAuthResponse,
-  IFacebookDataArray,
-  IFacebookPage,
-  IFacebookUser,
-  IInstagramAccount,
-  IFacebookAppInitializer
+  NgxFacebookAuthResponse,
+  NgxFacebookDataArray,
+  NgxFacebookPage,
+  NgxFacebookUser,
+  NgxInstagramAccount,
+  NgxFacebookAppInitializer
 } from './models';
 
 
@@ -25,7 +25,7 @@ export class NgxFacebookService {
 
   constructor(private readonly _http: HttpClient) {}
 
-  public init(initializer: IFacebookAppInitializer): void {
+  public init(initializer: NgxFacebookAppInitializer): void {
     const defaults = {
       cookie: true,
       xfbml: true,
@@ -40,12 +40,12 @@ export class NgxFacebookService {
     this._init(document, 'script', 'facebook-jssdk');
   }
 
-  public login(permissions: string[] = []): Observable<IFacebookAuthResponse> {
+  public login(permissions: string[] = []): Observable<NgxFacebookAuthResponse> {
     const scope = permissions.toString();
 
-    return new Observable((observer: NextObserver<IFacebookAuthResponse>) => {
+    return new Observable((observer: NextObserver<NgxFacebookAuthResponse>) => {
       FB.login(
-        (response: IFacebookAuthResponse) => {
+        (response: NgxFacebookAuthResponse) => {
           observer.next(response);
           observer.complete();
         },
@@ -57,18 +57,18 @@ export class NgxFacebookService {
     });
   }
 
-  public getAccountInfo(accessToken: string): Observable<IFacebookUser> {
+  public getAccountInfo(accessToken: string): Observable<NgxFacebookUser> {
     const params = new HttpParams().set('access_token', accessToken);
     const url = `${this.API}/me`;
 
-    return this._http.get<IFacebookUser>(url, { params });
+    return this._http.get<NgxFacebookUser>(url, { params });
   }
 
   // empty array means that user has no linked instagram accounts
   public getPages(
     userID: number,
     accessToken: string,
-  ): Observable<IFacebookPage[]> {
+  ): Observable<NgxFacebookPage[]> {
     const requiredFields = 'instagram_business_account,name,category';
     const params = new HttpParams()
       .set('access_token', accessToken)
@@ -77,7 +77,7 @@ export class NgxFacebookService {
     const url = `${this.API}/${userID}/accounts`;
 
     return this._http
-      .get<IFacebookDataArray<IFacebookPage>>(url, { params })
+      .get<NgxFacebookDataArray<NgxFacebookPage>>(url, { params })
       .pipe(
         map(response => response.data),
         map(pages => pages.filter(page => page.instagram_business_account)),
@@ -87,13 +87,13 @@ export class NgxFacebookService {
   public getInstagramAccountInfo(
     instagramID: number,
     accessToken: string,
-  ): Observable<IInstagramAccount> {
+  ): Observable<NgxInstagramAccount> {
     const params = new HttpParams()
       .set('access_token', accessToken)
       .set('fields', 'username');
     const url = `${this.API}/${instagramID}`;
 
-    return this._http.get<IInstagramAccount>(url, { params });
+    return this._http.get<NgxInstagramAccount>(url, { params });
   }
 
   public getMedia(pageID: number, accessToken: string): Observable<any> {
@@ -105,7 +105,7 @@ export class NgxFacebookService {
 
     const url = `${this.API}/${pageID}/media`;
 
-    return this._http.get<IFacebookDataArray<IFacebookPage>>(url, { params });
+    return this._http.get<NgxFacebookDataArray<NgxFacebookPage>>(url, { params });
   }
 
   private _init(d, s, id) {
