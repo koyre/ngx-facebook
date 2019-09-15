@@ -2,33 +2,35 @@ import {
   Directive,
   EventEmitter,
   HostListener,
+  Input,
   OnDestroy,
-  Output,
+  Output
 } from '@angular/core';
 import { NgxFacebookService } from './ngx-facebook.service';
 import { NgxFacebookAuthResponse } from './models';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Directive({
-  selector: '[ngxFbLoginButton]',
+  selector: '[ngxFbAuth]',
 })
-export class NgxFacebookLoginDirective implements OnDestroy {
+export class NgxFacebookAuthDirective implements OnDestroy {
+  @Input('ngxFbAuth')
+  public permissions: string[] = [];
+
   @Output()
-  public readonly login = new EventEmitter<NgxFacebookAuthResponse>();
+  public readonly authorized = new EventEmitter<NgxFacebookAuthResponse>();
 
   constructor(private readonly _ngxFacebookService: NgxFacebookService) {}
 
   public ngOnDestroy(): void {}
 
   @HostListener('click', ['$event'])
-  public onClick(_: any): void {
-    const permissions = ['instagram_basic', 'pages_show_list'];
-
+  public onClick(): void {
     this._ngxFacebookService
-      .login(permissions)
+      .login(this.permissions)
       .pipe(untilDestroyed(this))
       .subscribe(response => {
-        this.login.emit(response);
+        this.authorized.emit(response);
       });
   }
 }

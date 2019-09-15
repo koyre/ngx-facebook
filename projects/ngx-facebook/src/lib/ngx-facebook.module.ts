@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { NgxFacebookService } from './ngx-facebook.service';
-import { NgxFacebookLoginDirective } from './ngx-facebook-login.directive';
+import { NgxFacebookAuthDirective } from './ngx-facebook-auth.directive';
 
 
 
 @NgModule({
-  declarations: [NgxFacebookLoginDirective],
+  declarations: [NgxFacebookAuthDirective],
   providers: [NgxFacebookService],
-  exports: [NgxFacebookLoginDirective],
+  exports: [NgxFacebookAuthDirective],
 })
 export class NgxFacebookModule { }
