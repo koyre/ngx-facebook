@@ -24,9 +24,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build_lib": "ng build NgxFacebook",
-    "copy-readme": "cp README.md dist/ngx-facebook",
+    "copy_readme": "cp README.md dist/ngx-facebook",
     "npm_pack": "cd dist/ngx-facebook && npm pack",
-    "package": "npm run build_lib && npm run copy-readme && npm run npm_pack"
+    "package": "npm run build_lib && npm run copy_readme && npm run npm_pack"
   },
   "private": true,
   "dependencies": {
