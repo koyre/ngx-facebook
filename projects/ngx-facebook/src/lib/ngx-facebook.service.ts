@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-
-declare var FB: any;
-
 import { NextObserver, Observable } from 'rxjs';
 
-import {
-  NgxFacebookAuthResponse,
-  NgxFacebookConfig
-} from './models';
+import { NgxFacebookAuthDetails, NgxFacebookAuthResponse, NgxFacebookAuthStatus, NgxFacebookConfig } from './models';
+import { tap } from 'rxjs/operators';
+
+declare var FB: any;
 
 function appendFacebookScript() {
   const tag = 'script';
@@ -31,35 +28,71 @@ function appendFacebookScript() {
 
 @Injectable()
 export class NgxFacebookService {
+  /**
+   * has user authorize app
+   */
+  public get connected(): boolean {
+    return this._status === NgxFacebookAuthStatus.connected;
+  }
+
+  /**
+   * get user's facebook access token
+   */
+  public get accessToken(): string {
+    return this.connected && this._authorization.accessToken;
+  }
+
+  /**
+   * get app config
+   */
+  public get config(): NgxFacebookConfig {
+    return this._config;
+  }
+
+  private _config: NgxFacebookConfig;
+  private _authorization: NgxFacebookAuthResponse;
+  private _status = NgxFacebookAuthStatus.unknown;
+
   public init(config: NgxFacebookConfig): void {
-    const defaults = {
-      cookie: true,
-      xfbml: true,
-      version: 'v3.3',
-    };
+    this._config = config;
 
     (window as any).fbAsyncInit = () => {
-      FB.init({...defaults, ...config});
+      FB.init(this.config);
       FB.AppEvents.logPageView();
     };
 
     appendFacebookScript();
   }
 
-  public login(permissions: string[] = []): Observable<NgxFacebookAuthResponse> {
+  public checkAuthorization(): Observable<NgxFacebookAuthDetails> {
+    return new Observable((observer: NextObserver<NgxFacebookAuthDetails>) => {
+      FB.getLoginStatus((details: NgxFacebookAuthDetails) => {
+        observer.next(details);
+        observer.complete();
+      });
+    }).pipe(tap(this._saveResponse));
+  }
+
+  public login(permissions: string[] = []): Observable<NgxFacebookAuthDetails> {
     const scope = permissions.toString();
 
-    return new Observable((observer: NextObserver<NgxFacebookAuthResponse>) => {
+    return new Observable((observer: NextObserver<NgxFacebookAuthDetails>) => {
       FB.login(
-        (response: NgxFacebookAuthResponse) => {
-          observer.next(response);
-          observer.complete();
+        (details: NgxFacebookAuthDetails) => {
+          if (details.status === NgxFacebookAuthStatus.connected) {
+            observer.next(details);
+            observer.complete();
+            return;
+          }
+          observer.error(details);
         },
-        {
-          auth_type: 'rerequest',
-          scope,
-        },
+        { scope },
       );
-    });
+    }).pipe(tap(this._saveResponse));
+  }
+
+  private _saveResponse({status, authResponse}: NgxFacebookAuthDetails) {
+    this._status = status;
+    this._authorization = authResponse;
   }
 }

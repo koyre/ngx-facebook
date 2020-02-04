@@ -3,6 +3,7 @@
  */
 
 export * from './lib/ngx-facebook-auth.directive';
+export * from './lib/ngx-facebook.interceptor';
 export * from './lib/ngx-facebook.service';
 export * from './lib/ngx-facebook.module';
 export * from './lib/models';

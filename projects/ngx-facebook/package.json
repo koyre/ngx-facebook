@@ -1,6 +1,6 @@
 {
   "name": "@koyre/ngx-facebook",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simple wrapper of Facebook Web SDK for Angular",
   "author": "Dmitry Rogov",
   "repository": {

@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { NgxFacebookService } from './ngx-facebook.service';
-import { NgxFacebookAuthResponse } from './models';
+import { NgxFacebookAuthDetails } from './models';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Directive({
@@ -18,7 +18,9 @@ export class NgxFacebookAuthDirective implements OnDestroy {
   public permissions: string[] = [];
 
   @Output()
-  public readonly authorized = new EventEmitter<NgxFacebookAuthResponse>();
+  public readonly authorized = new EventEmitter<NgxFacebookAuthDetails>();
+  @Output()
+  public readonly cancelled = new EventEmitter<NgxFacebookAuthDetails>();
 
   constructor(private readonly _ngxFacebookService: NgxFacebookService) {}
 
@@ -29,8 +31,9 @@ export class NgxFacebookAuthDirective implements OnDestroy {
     this._ngxFacebookService
       .login(this.permissions)
       .pipe(untilDestroyed(this))
-      .subscribe(response => {
-        this.authorized.emit(response);
-      });
+      .subscribe(
+        (response: NgxFacebookAuthDetails) => this.authorized.emit(response),
+        (response: NgxFacebookAuthDetails) => this.cancelled.emit(response),
+      );
   }
 }
